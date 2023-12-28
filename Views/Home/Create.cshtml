@@ -1,0 +1,61 @@
+﻿@model SewaKendaraan.Models.PemesananViewModel
+@{
+    ViewBag.Title = "Create Pemesanan";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<h2>Create Pemesanan</h2>
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model=> model.CreatedBy)
+<div class="form-horizontal">
+    <div class="form-group">
+        @Html.LabelFor(model => model.KendaraanList, "Kendaraan", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.KendaraanId, Model.KendaraanList, "-- Select Kendaraan --", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.KendaraanList)
+        </div>
+    </div>
+        @if (Model.AdminShowDropdown)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserList, "User Approval", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.UserId, Model.UserList, "-- Select User --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.UserList)
+                </div>
+            </div>
+        }
+        @if (Model.AdminShowDropdown)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.DriverList, "Driver", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.IdDriver, Model.DriverList, "-- Select Driver --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DriverList)
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UsersPemesan, "User Pemesan", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdPemesan, Model.UsersPemesan, "-- Select Pemesan --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UsersPemesan)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new { area = "", roles = ViewBag.Roles, id = ViewBag.id }, new { @class = "nav-link" })
+</div>

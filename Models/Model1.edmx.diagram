@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2aa60a98803e482b88358f7aad621b80" Name="Diagram1">
+        <EntityTypeShape EntityType="SewaKendaraanModel.Kendaraan" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SewaKendaraanModel.LogAplikasi" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SewaKendaraanModel.Pemesanan" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SewaKendaraanModel.User" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__LogAplika__Kenda__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__Pemesanan__Kenda__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__LogAplika__Appro__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__LogAplika__Creat__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__LogAplika__IdDri__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__LogAplika__idPem__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__LogAplika__LastA__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__LogAplika__UserI__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__Pemesanan__Appro__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__Pemesanan__Creat__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__Pemesanan__IdDri__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__Pemesanan__idPem__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__Pemesanan__LastA__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="SewaKendaraanModel.FK__Pemesanan__UserI__37A5467C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

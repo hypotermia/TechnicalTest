@@ -1,0 +1,690 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SewaKendaraanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kendaraan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="names" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="nopol" Type="varchar" MaxLength="12" />
+          <Property Name="konsumsiBBM" Type="varchar" MaxLength="20" />
+          <Property Name="jadwalServis" Type="datetime" />
+          <Property Name="onLoan" Type="bit" />
+        </EntityType>
+        <EntityType Name="LogAplikasi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="KendaraanId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="ApprovedBy" Type="uniqueidentifier" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="LastApprovedBy" Type="uniqueidentifier" />
+          <Property Name="LastApprovedDate" Type="datetime" />
+          <Property Name="idPemesan" Type="uniqueidentifier" />
+          <Property Name="IdDriver" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Pemesanan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="KendaraanId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Nullable="false" />
+          <Property Name="ApprovedBy" Type="uniqueidentifier" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="LastApprovedBy" Type="uniqueidentifier" />
+          <Property Name="LastApprovedDate" Type="datetime" />
+          <Property Name="idPemesan" Type="uniqueidentifier" />
+          <Property Name="IdDriver" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="passwords" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Roles" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__LogAplika__Appro__4222D4EF">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__Creat__412EB0B6">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__IdDri__44FF419A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="IdDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__idPem__440B1D61">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="idPemesan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__Kenda__3F466844">
+          <End Role="Kendaraan" Type="Self.Kendaraan" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kendaraan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="KendaraanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__LastA__4316F928">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="LastApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__UserI__403A8C7D">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__Appro__398D8EEE">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__Creat__38996AB5">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__IdDri__3C69FB99">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="IdDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__idPem__3B75D760">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="idPemesan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__Kenda__36B12243">
+          <End Role="Kendaraan" Type="Self.Kendaraan" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kendaraan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="KendaraanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__LastA__3A81B327">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="LastApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__UserI__37A5467C">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SewaKendaraanModelStoreContainer">
+          <EntitySet Name="Kendaraan" EntityType="Self.Kendaraan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogAplikasi" EntityType="Self.LogAplikasi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pemesanan" EntityType="Self.Pemesanan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__LogAplika__Appro__4222D4EF" Association="Self.FK__LogAplika__Appro__4222D4EF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__Creat__412EB0B6" Association="Self.FK__LogAplika__Creat__412EB0B6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__IdDri__44FF419A" Association="Self.FK__LogAplika__IdDri__44FF419A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__idPem__440B1D61" Association="Self.FK__LogAplika__idPem__440B1D61">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__Kenda__3F466844" Association="Self.FK__LogAplika__Kenda__3F466844">
+            <End Role="Kendaraan" EntitySet="Kendaraan" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__LastA__4316F928" Association="Self.FK__LogAplika__LastA__4316F928">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__UserI__403A8C7D" Association="Self.FK__LogAplika__UserI__403A8C7D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__Appro__398D8EEE" Association="Self.FK__Pemesanan__Appro__398D8EEE">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__Creat__38996AB5" Association="Self.FK__Pemesanan__Creat__38996AB5">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__IdDri__3C69FB99" Association="Self.FK__Pemesanan__IdDri__3C69FB99">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__idPem__3B75D760" Association="Self.FK__Pemesanan__idPem__3B75D760">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__Kenda__36B12243" Association="Self.FK__Pemesanan__Kenda__36B12243">
+            <End Role="Kendaraan" EntitySet="Kendaraan" />
+            <End Role="Pemesanan" EntitySet="Pemesanan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__LastA__3A81B327" Association="Self.FK__Pemesanan__LastA__3A81B327">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__UserI__37A5467C" Association="Self.FK__Pemesanan__UserI__37A5467C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SewaKendaraanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kendaraan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="names" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nopol" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="konsumsiBBM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="jadwalServis" Type="DateTime" Precision="3" />
+          <Property Name="onLoan" Type="Boolean" />
+          <NavigationProperty Name="LogAplikasis" Relationship="Self.FK__LogAplika__Kenda__3F466844" FromRole="Kendaraan" ToRole="LogAplikasi" />
+          <NavigationProperty Name="Pemesanans" Relationship="Self.FK__Pemesanan__Kenda__36B12243" FromRole="Kendaraan" ToRole="Pemesanan" />
+        </EntityType>
+        <EntityType Name="LogAplikasi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="KendaraanId" Type="Guid" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovedBy" Type="Guid" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastApprovedBy" Type="Guid" />
+          <Property Name="LastApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="idPemesan" Type="Guid" />
+          <Property Name="IdDriver" Type="Guid" />
+          <NavigationProperty Name="Kendaraan" Relationship="Self.FK__LogAplika__Kenda__3F466844" FromRole="LogAplikasi" ToRole="Kendaraan" />
+          <NavigationProperty Name="User" Relationship="Self.FK__LogAplika__Appro__4222D4EF" FromRole="LogAplikasi" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__LogAplika__Creat__412EB0B6" FromRole="LogAplikasi" ToRole="Users" />
+          <NavigationProperty Name="User2" Relationship="Self.FK__LogAplika__IdDri__44FF419A" FromRole="LogAplikasi" ToRole="Users" />
+          <NavigationProperty Name="User3" Relationship="Self.FK__LogAplika__idPem__440B1D61" FromRole="LogAplikasi" ToRole="Users" />
+          <NavigationProperty Name="User4" Relationship="Self.FK__LogAplika__LastA__4316F928" FromRole="LogAplikasi" ToRole="Users" />
+          <NavigationProperty Name="User5" Relationship="Self.FK__LogAplika__UserI__403A8C7D" FromRole="LogAplikasi" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Pemesanan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="KendaraanId" Type="Guid" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="CreatedBy" Type="Guid" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovedBy" Type="Guid" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastApprovedBy" Type="Guid" />
+          <Property Name="LastApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="idPemesan" Type="Guid" />
+          <Property Name="IdDriver" Type="Guid" />
+          <NavigationProperty Name="Kendaraan" Relationship="Self.FK__Pemesanan__Kenda__36B12243" FromRole="Pemesanan" ToRole="Kendaraan" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Pemesanan__Appro__398D8EEE" FromRole="Pemesanan" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Pemesanan__Creat__38996AB5" FromRole="Pemesanan" ToRole="Users" />
+          <NavigationProperty Name="User2" Relationship="Self.FK__Pemesanan__IdDri__3C69FB99" FromRole="Pemesanan" ToRole="Users" />
+          <NavigationProperty Name="User3" Relationship="Self.FK__Pemesanan__idPem__3B75D760" FromRole="Pemesanan" ToRole="Users" />
+          <NavigationProperty Name="User4" Relationship="Self.FK__Pemesanan__LastA__3A81B327" FromRole="Pemesanan" ToRole="Users" />
+          <NavigationProperty Name="User5" Relationship="Self.FK__Pemesanan__UserI__37A5467C" FromRole="Pemesanan" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwords" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Roles" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LogAplikasis" Relationship="Self.FK__LogAplika__Appro__4222D4EF" FromRole="Users" ToRole="LogAplikasi" />
+          <NavigationProperty Name="LogAplikasis1" Relationship="Self.FK__LogAplika__Creat__412EB0B6" FromRole="Users" ToRole="LogAplikasi" />
+          <NavigationProperty Name="LogAplikasis2" Relationship="Self.FK__LogAplika__IdDri__44FF419A" FromRole="Users" ToRole="LogAplikasi" />
+          <NavigationProperty Name="LogAplikasis3" Relationship="Self.FK__LogAplika__idPem__440B1D61" FromRole="Users" ToRole="LogAplikasi" />
+          <NavigationProperty Name="LogAplikasis4" Relationship="Self.FK__LogAplika__LastA__4316F928" FromRole="Users" ToRole="LogAplikasi" />
+          <NavigationProperty Name="LogAplikasis5" Relationship="Self.FK__LogAplika__UserI__403A8C7D" FromRole="Users" ToRole="LogAplikasi" />
+          <NavigationProperty Name="Pemesanans" Relationship="Self.FK__Pemesanan__Appro__398D8EEE" FromRole="Users" ToRole="Pemesanan" />
+          <NavigationProperty Name="Pemesanans1" Relationship="Self.FK__Pemesanan__Creat__38996AB5" FromRole="Users" ToRole="Pemesanan" />
+          <NavigationProperty Name="Pemesanans2" Relationship="Self.FK__Pemesanan__IdDri__3C69FB99" FromRole="Users" ToRole="Pemesanan" />
+          <NavigationProperty Name="Pemesanans3" Relationship="Self.FK__Pemesanan__idPem__3B75D760" FromRole="Users" ToRole="Pemesanan" />
+          <NavigationProperty Name="Pemesanans4" Relationship="Self.FK__Pemesanan__LastA__3A81B327" FromRole="Users" ToRole="Pemesanan" />
+          <NavigationProperty Name="Pemesanans5" Relationship="Self.FK__Pemesanan__UserI__37A5467C" FromRole="Users" ToRole="Pemesanan" />
+        </EntityType>
+        <Association Name="FK__LogAplika__Kenda__3F466844">
+          <End Role="Kendaraan" Type="Self.Kendaraan" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kendaraan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="KendaraanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__Kenda__36B12243">
+          <End Role="Kendaraan" Type="Self.Kendaraan" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kendaraan">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="KendaraanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__Appro__4222D4EF">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__Creat__412EB0B6">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__IdDri__44FF419A">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="IdDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__idPem__440B1D61">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="idPemesan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__LastA__4316F928">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="LastApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LogAplika__UserI__403A8C7D">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="LogAplikasi" Type="Self.LogAplikasi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogAplikasi">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__Appro__398D8EEE">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__Creat__38996AB5">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__IdDri__3C69FB99">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="IdDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__idPem__3B75D760">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="idPemesan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__LastA__3A81B327">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="LastApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pemesanan__UserI__37A5467C">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Pemesanan" Type="Self.Pemesanan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pemesanan">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SewaKendaraanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kendaraans" EntityType="Self.Kendaraan" />
+          <EntitySet Name="LogAplikasis" EntityType="Self.LogAplikasi" />
+          <EntitySet Name="Pemesanans" EntityType="Self.Pemesanan" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__LogAplika__Kenda__3F466844" Association="Self.FK__LogAplika__Kenda__3F466844">
+            <End Role="Kendaraan" EntitySet="Kendaraans" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__Kenda__36B12243" Association="Self.FK__Pemesanan__Kenda__36B12243">
+            <End Role="Kendaraan" EntitySet="Kendaraans" />
+            <End Role="Pemesanan" EntitySet="Pemesanans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__Appro__4222D4EF" Association="Self.FK__LogAplika__Appro__4222D4EF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__Creat__412EB0B6" Association="Self.FK__LogAplika__Creat__412EB0B6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__IdDri__44FF419A" Association="Self.FK__LogAplika__IdDri__44FF419A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__idPem__440B1D61" Association="Self.FK__LogAplika__idPem__440B1D61">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__LastA__4316F928" Association="Self.FK__LogAplika__LastA__4316F928">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LogAplika__UserI__403A8C7D" Association="Self.FK__LogAplika__UserI__403A8C7D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogAplikasi" EntitySet="LogAplikasis" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__Appro__398D8EEE" Association="Self.FK__Pemesanan__Appro__398D8EEE">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__Creat__38996AB5" Association="Self.FK__Pemesanan__Creat__38996AB5">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__IdDri__3C69FB99" Association="Self.FK__Pemesanan__IdDri__3C69FB99">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__idPem__3B75D760" Association="Self.FK__Pemesanan__idPem__3B75D760">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__LastA__3A81B327" Association="Self.FK__Pemesanan__LastA__3A81B327">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pemesanan__UserI__37A5467C" Association="Self.FK__Pemesanan__UserI__37A5467C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pemesanan" EntitySet="Pemesanans" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SewaKendaraanModelStoreContainer" CdmEntityContainer="SewaKendaraanEntities">
+          <EntitySetMapping Name="Kendaraans">
+            <EntityTypeMapping TypeName="SewaKendaraanModel.Kendaraan">
+              <MappingFragment StoreEntitySet="Kendaraan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="names" ColumnName="names" />
+                <ScalarProperty Name="nopol" ColumnName="nopol" />
+                <ScalarProperty Name="konsumsiBBM" ColumnName="konsumsiBBM" />
+                <ScalarProperty Name="jadwalServis" ColumnName="jadwalServis" />
+                <ScalarProperty Name="onLoan" ColumnName="onLoan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogAplikasis">
+            <EntityTypeMapping TypeName="SewaKendaraanModel.LogAplikasi">
+              <MappingFragment StoreEntitySet="LogAplikasi">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="KendaraanId" ColumnName="KendaraanId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="LastApprovedBy" ColumnName="LastApprovedBy" />
+                <ScalarProperty Name="LastApprovedDate" ColumnName="LastApprovedDate" />
+                <ScalarProperty Name="idPemesan" ColumnName="idPemesan" />
+                <ScalarProperty Name="IdDriver" ColumnName="IdDriver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pemesanans">
+            <EntityTypeMapping TypeName="SewaKendaraanModel.Pemesanan">
+              <MappingFragment StoreEntitySet="Pemesanan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="KendaraanId" ColumnName="KendaraanId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="LastApprovedBy" ColumnName="LastApprovedBy" />
+                <ScalarProperty Name="LastApprovedDate" ColumnName="LastApprovedDate" />
+                <ScalarProperty Name="idPemesan" ColumnName="idPemesan" />
+                <ScalarProperty Name="IdDriver" ColumnName="IdDriver" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SewaKendaraanModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="passwords" ColumnName="passwords" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

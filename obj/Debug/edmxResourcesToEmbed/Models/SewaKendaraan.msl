@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SewaKendaraanModelStoreContainer" CdmEntityContainer="SewaKendaraanEntities1">
+    <EntitySetMapping Name="Kendaraans">
+      <EntityTypeMapping TypeName="SewaKendaraanModel.Kendaraan">
+        <MappingFragment StoreEntitySet="Kendaraan">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="names" ColumnName="names" />
+          <ScalarProperty Name="nopol" ColumnName="nopol" />
+          <ScalarProperty Name="konsumsiBBM" ColumnName="konsumsiBBM" />
+          <ScalarProperty Name="jadwalServis" ColumnName="jadwalServis" />
+          <ScalarProperty Name="onLoan" ColumnName="onLoan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogAplikasis">
+      <EntityTypeMapping TypeName="SewaKendaraanModel.LogAplikasi">
+        <MappingFragment StoreEntitySet="LogAplikasi">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="KendaraanId" ColumnName="KendaraanId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="LastApprovedBy" ColumnName="LastApprovedBy" />
+          <ScalarProperty Name="LastApprovedDate" ColumnName="LastApprovedDate" />
+          <ScalarProperty Name="IdDriver" ColumnName="IdDriver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pemesanans">
+      <EntityTypeMapping TypeName="SewaKendaraanModel.Pemesanan">
+        <MappingFragment StoreEntitySet="Pemesanan">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="KendaraanId" ColumnName="KendaraanId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="IdDriver" ColumnName="IdDriver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="SewaKendaraanModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="passwords" ColumnName="passwords" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

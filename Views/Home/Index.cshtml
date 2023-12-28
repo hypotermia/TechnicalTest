@@ -1,0 +1,37 @@
+﻿@model List<SewaKendaraan.Models.PemesananTableModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kendaraan Name</th>
+            <th>User Pemesan</th>
+            <th>Driver Name</th>
+            <th>User Approver</th>
+            <th>Approved By</th>
+            <th>Approved Date</th>
+            <th>Created By</th>
+            <th>Created Date</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.KendaraanName</td>
+                <td>@item.UserPemesan</td>
+                <td>@item.DriverName</td>
+                <td>@item.UserApprover</td>
+                <td>@item.ApprovedBy</td>
+                <td>@item.ApprovedDate</td>
+                <td>@item.CreatedBy</td>
+                <td>@item.CreatedDate</td>
+                <td>
+                    @if (ViewBag.Roles != "pegawai")
+                    {@Html.ActionLink("Approve", "Approve", new { roles = ViewBag.Roles, id = item.Id ,usersId = ViewBag.id})}
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
