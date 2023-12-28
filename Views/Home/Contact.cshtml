@@ -34,3 +34,9 @@
         }
     </tbody>
 </table>
+@if (Model.Any())<!-- Show the button only if there is data -->
+{
+<p>
+    <a class="btn btn-primary" href="@Url.Action("ExportToExcel", "Home")">Export to Excel</a>
+</p>
+}

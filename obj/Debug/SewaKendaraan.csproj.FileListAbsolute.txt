@@ -81,3 +81,10 @@ E:\LearnProject\SewaKendaraan\obj\Debug\SewaKendaraan.csproj.CoreCompileInputs.c
 E:\LearnProject\SewaKendaraan\obj\Debug\SewaKendaraan.csproj.CopyComplete
 E:\LearnProject\SewaKendaraan\obj\Debug\SewaKendaraan.dll
 E:\LearnProject\SewaKendaraan\obj\Debug\SewaKendaraan.pdb
+E:\LearnProject\SewaKendaraan\bin\EPPlus.dll
+E:\LearnProject\SewaKendaraan\bin\EPPlus.Interfaces.dll
+E:\LearnProject\SewaKendaraan\bin\EPPlus.System.Drawing.dll
+E:\LearnProject\SewaKendaraan\bin\Microsoft.IO.RecyclableMemoryStream.dll
+E:\LearnProject\SewaKendaraan\bin\System.ComponentModel.Annotations.dll
+E:\LearnProject\SewaKendaraan\bin\EPPlus.xml
+E:\LearnProject\SewaKendaraan\bin\Microsoft.IO.RecyclableMemoryStream.xml

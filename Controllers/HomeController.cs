@@ -1,6 +1,7 @@
 ﻿using SewaKendaraan.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -8,6 +9,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.IO;
 
 namespace SewaKendaraan.Controllers
 {
@@ -308,7 +312,89 @@ namespace SewaKendaraan.Controllers
             
             return View(model);
         }
+        public ActionResult ExportToExcel(string roles, Guid id)
+        {
+            List<Pemesanan> pemesananData = dbContext.Pemesanans.ToList();
+            Dictionary<Guid, string> userIdToNameMapping = dbContext.Users.ToDictionary(u => u.Id, u => u.username);
 
+            // Transform data
+            List<PemesananTableModel> combinedData = pemesananData
+                .Where(p => p.UserId == id && roles != "Admin") 
+                .Select(p => new PemesananTableModel
+                {
+                    Id = p.id,
+                    KendaraanName = p.Kendaraan != null ? p.Kendaraan.names : string.Empty,
+                    ApprovedBy = p.ApprovedBy.HasValue && userIdToNameMapping.ContainsKey(p.ApprovedBy.Value) ? userIdToNameMapping[p.ApprovedBy.Value] : "N/A",
+                    CreatedBy = userIdToNameMapping.ContainsKey(p.CreatedBy) ? userIdToNameMapping[p.CreatedBy] : string.Empty,
+                    DriverName = p.IdDriver.HasValue && userIdToNameMapping.ContainsKey(p.IdDriver.Value) ? userIdToNameMapping[p.IdDriver.Value] : string.Empty,
+                    CreatedDate = p.createdDate,
+                    ApprovedDate = p.ApprovedDate,
+                    LastApprovedBy = p.LastApprovedBy.HasValue && userIdToNameMapping.ContainsKey(p.LastApprovedBy.Value) ? userIdToNameMapping[p.LastApprovedBy.Value] : string.Empty,
+                    LastApprovedDate = p.LastApprovedDate,
+                    UserApprover = p.UserId.HasValue && userIdToNameMapping.ContainsKey(p.UserId.Value) ? userIdToNameMapping[p.UserId.Value] : string.Empty,
+                    UserPemesan = p.idPemesan.HasValue && userIdToNameMapping.ContainsKey(p.idPemesan.Value) ? userIdToNameMapping[p.idPemesan.Value] : string.Empty
+                })
+                .ToList();
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+             
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("PemesananData");
+
+                // Add headers
+                var properties = typeof(PemesananTableModel).GetProperties();
+                for (int i = 0; i < properties.Length; i++)
+                {
+                    worksheet.Cells[1, i + 1].Value = properties[i].Name;
+                    worksheet.Cells[1, i + 1].Style.Font.Bold = true;
+                }
+
+                // Add data rows
+                for (int i = 0; i < combinedData.Count; i++)
+                {
+                    var rowData = combinedData[i];
+                    for (int j = 0; j < properties.Length; j++)
+                    {
+                        worksheet.Cells[i + 2, j + 1].Value = properties[j].GetValue(rowData, null);
+                    }
+                }
+
+                // Auto fit columns for better readability
+                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                // Set content type and return the Excel file
+                return File(package.GetAsByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "PemesananData.xlsx");
+            }
+        }
+        public ActionResult Dashboard(string roles, Guid id)
+        {
+            ViewBag.Roles = roles;
+            ViewBag.id = id;
+            if (roles != null)
+            {
+                ViewBag.IsAuthenticated = "true";
+            }
+
+            
+
+            var dataGrafik = dbContext.Pemesanans
+                .Where(p => p.UserId == id && roles != "Admin")
+                .GroupBy(p => new { Bulan = p.createdDate.Month, Tahun = p.createdDate.Year })
+                .Select(g => new
+                {
+                    Bulan = g.Key.Bulan,
+                    Tahun = g.Key.Tahun,
+                    TotalPemakaian = g.Count()
+                })
+                .OrderBy(g => g.Tahun)
+                .ThenBy(g => g.Bulan)
+                .ToList();
+
+            ViewBag.GrafikData = dataGrafik;
+
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

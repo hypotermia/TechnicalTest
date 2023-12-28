@@ -28,9 +28,10 @@
                 <ul class="navbar-nav flex-grow-1">
                     @if (isLoggedIn)
                     {
-                        <li>@Html.ActionLink("List Pemesanan", "Index", "Home", new { area = "",roles = ViewBag.Roles,id=ViewBag.id}, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("List Pemesanan", "Index", "Home", new { area = "", roles = ViewBag.Roles, id = ViewBag.id }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Pemesanan", "Create", "Home", new { area = "", roles = ViewBag.Roles, id = ViewBag.id }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Log Pemesanan", "Contact", "Home", new { area = "", roles = ViewBag.Roles, id = ViewBag.id }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Dashboard", "Dashboard", "Home", new { area = "", roles = ViewBag.Roles, id = ViewBag.id }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Logout", "Logout", "Login", new { area = "" }, new { @class = "nav-link" })</li>
                     }
 

@@ -1,0 +1,48 @@
+﻿@model List<dynamic>
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var dataGrafik = @Html.Raw(Json.Encode(ViewBag.GrafikData));
+
+        var labels = dataGrafik.map(item => item.Bulan + '/' + item.Tahun);
+        var data = dataGrafik.map(item => item.TotalPemakaian);
+
+        var dataForChart = {
+            labels: labels,
+            datasets: [{
+                label: 'Pemakaian Kendaraan',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var options = {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: dataForChart,
+            options: options
+        });
+    </script>
+}
