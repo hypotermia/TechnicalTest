@@ -5,6 +5,7 @@ Login :
 	2. atasan
 	3. pegawai 
 	Passwordnya sama semua yaitu = test123
+export excel berada pada Log Aplikasi 
 DB version = microsoft SQL server 2019
 Net Framework version 4.7
 Visual studio 2022
