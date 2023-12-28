@@ -15,3 +15,6 @@ cara pakai aplikasi
 	klik Pemesanan untuk melakukan pemesanan / menginputkan pemesanan
 	setelah itu di list langsung bisa di approve oleh atasan / admin.
 	export excel berada pada Log Pemesanan	
+
+untuk physical data model di file dengan nama PhysicalDataModeling
+untuk activity diagram di file dengan nama Activity Diagram 
